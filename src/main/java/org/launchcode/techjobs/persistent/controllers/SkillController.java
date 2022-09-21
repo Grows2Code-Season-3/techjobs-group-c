@@ -1,5 +1,6 @@
 package org.launchcode.techjobs.persistent.controllers;
 
+import org.launchcode.techjobs.persistent.models.Employer;
 import org.launchcode.techjobs.persistent.models.Skill;
 import org.launchcode.techjobs.persistent.models.data.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +56,38 @@ public class SkillController {
             return "redirect:../";
         }
     }
+
+    @GetMapping("edit/{skillId}")
+    public String displayEditSkill(Model model, @PathVariable int skillId){
+
+        Optional<Skill> optSkill = skillRepository.findById(skillId);
+        if(optSkill.isPresent()){
+            Skill skill = optSkill.get();
+            model.addAttribute("skill", skill);
+            model.addAttribute("title", "Edit Skill ");
+        }else{
+            //do something
+        }
+        return "skills/edit";
+    }
+
+    @PostMapping("edit")
+    public String processEditSkill(@RequestParam int skillId,
+                                      @RequestParam String name, @RequestParam String description){
+        Optional<Skill> optionalSkill = skillRepository.findById(skillId);
+        if(optionalSkill.isPresent()){
+            Skill skill = optionalSkill.get();
+            skill.setName(name);
+            skill.setDescription(description);
+            skillRepository.save(skill);
+        }else{
+            //do something
+        }
+        return "redirect:";
+    }
+
+
+
+
 
 }
