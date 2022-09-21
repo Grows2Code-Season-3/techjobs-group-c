@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container  body-content">
+<h1 th:text="${'Employer: ' + employer.name}">Default Title</h1>
+
+<nav th:replace="fragments :: page-header"></nav>
+
+<div class="row pt-4">
+    <div class="col">
+        <form method="POST" th:action="@{/employers/edit}">
+            <div class="form-group">
+                <label>Name
+                    <input class="form-control" name="name" type="text" th:value="${employer.name}">
+                </label>
+            </div>
+            <div class="form-group">
+                <label>Description
+                    <input class="form-control" name="location" type="text" th:value="${employer.location}">
+                </label>
+            </div>
+            <input type="hidden" th:value="${employer.id}" name="employerId">
+            <button class="btn btn-success">Save</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

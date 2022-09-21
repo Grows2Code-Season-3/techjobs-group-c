@@ -10,6 +10,9 @@
 <div class="job-listing">
     <p th:text="${'Name: ' + employer.name}"></p>
     <p th:text="${'Location: ' + employer.location}"></p>
+   <p> <a th:href="@{/employers/edit/{id}(id=${employer.id})}">Edit</a></p>
+<!--    <p> <a href="/employers/edit/">Edit</a></p>-->
+
 </div>
 
 

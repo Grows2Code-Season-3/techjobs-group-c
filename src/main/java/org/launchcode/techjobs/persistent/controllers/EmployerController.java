@@ -22,6 +22,7 @@ public class EmployerController {
     public String index(Model model) {
         model.addAttribute("employers", employerRepository.findAll());
         return "employers/index";
+
     }
 
     @GetMapping("add")
@@ -54,5 +55,35 @@ public class EmployerController {
         } else {
             return "redirect:../";
         }
+    }
+
+    @GetMapping("edit/{employerId}")
+    public String displayEditEmployer(Model model, @PathVariable int employerId){
+
+        Optional<Employer> optEmployer = employerRepository.findById(employerId);
+        if(optEmployer.isPresent()){
+            Employer employer = optEmployer.get();
+            model.addAttribute("employer", employer);
+            model.addAttribute("title", "Edit Employer ");
+        }else{
+            //do something
+        }
+        return "employers/edit";
+    }
+
+    @PostMapping("edit")
+    public String processEditEmployer(@RequestParam int employerId,
+                                      @RequestParam String name,
+                                      @RequestParam String location){
+        Optional<Employer> optionalEmployer = employerRepository.findById(employerId);
+        if(optionalEmployer.isPresent()){
+            Employer employer = optionalEmployer.get();
+            employer.setName(name);
+            employer.setLocation(location);
+            employerRepository.save(employer);
+        }else{
+            //do something
+        }
+        return "redirect:";
     }
 }
