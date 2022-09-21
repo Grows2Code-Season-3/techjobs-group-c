@@ -32,6 +32,10 @@
         </p>
 
         <input type="submit" value="Search" />
+        <br>
+        <br>
+
+    <label th:if="${count} != null" th:text="${count} + ' jobs available' "></label>
     </form>
 
     <hr />

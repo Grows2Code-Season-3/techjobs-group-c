@@ -23,7 +23,11 @@ public class SearchController {
 
     @RequestMapping("")
     public String search(Model model) {
+
+        model.addAttribute("count", jobRepository.count() );
         model.addAttribute("columns", columnChoices);
+
+
         return "search";
     }
 
@@ -35,6 +39,7 @@ public class SearchController {
         } else {
             jobs = JobData.findByColumnAndValue(searchType, searchTerm, jobRepository.findAll());
         }
+
         model.addAttribute("columns", columnChoices);
         model.addAttribute("title", "Jobs with " + columnChoices.get(searchType) + ": " + searchTerm);
         model.addAttribute("jobs", jobs);
