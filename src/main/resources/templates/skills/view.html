@@ -10,6 +10,7 @@
 <div class="job-listing">
     <p th:text="${'Name: ' + skill.name}"></p>
     <p th:text="${'Description: ' + skill.description}"></p>
+    <p> <a th:href="@{/skills/edit/{id}(id=${skill.id})}">Edit</a></p>
     <p> Jobs:
         <ul>
             <li th:each="job : ${skill.jobs}">
